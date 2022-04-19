@@ -27,3 +27,19 @@ C:\Users\josec\Desktop\7mo semestre\Bse de datos 2\LoginBD\LoginBD\WindowsFormsA
 C:\Users\josec\Desktop\7mo semestre\Bse de datos 2\LoginBD\LoginBD\WindowsFormsApp1\obj\Debug\WindowsFormsApp1.Deposito.resources
 C:\Users\josec\Desktop\7mo semestre\Bse de datos 2\LoginBD\LoginBD\WindowsFormsApp1\obj\Debug\WindowsFormsApp1.Retiro.resources
 C:\Users\josec\Desktop\7mo semestre\Bse de datos 2\LoginBD\LoginBD\WindowsFormsApp1\obj\Debug\WindowsFormsApp1.EstadoCuenta.resources
+C:\Users\josec\Desktop\7mosemestre\BD2\LoginBD\LoginBD\WindowsFormsApp1\bin\Debug\WindowsFormsApp1.exe
+C:\Users\josec\Desktop\7mosemestre\BD2\LoginBD\LoginBD\WindowsFormsApp1\bin\Debug\WindowsFormsApp1.pdb
+C:\Users\josec\Desktop\7mosemestre\BD2\LoginBD\LoginBD\WindowsFormsApp1\bin\Debug\Microsoft.VisualBasic.PowerPacks.xml
+C:\Users\josec\Desktop\7mosemestre\BD2\LoginBD\LoginBD\WindowsFormsApp1\obj\Debug\WindowsFormsApp1.csproj.AssemblyReference.cache
+C:\Users\josec\Desktop\7mosemestre\BD2\LoginBD\LoginBD\WindowsFormsApp1\obj\Debug\WindowsFormsApp1.csproj.SuggestedBindingRedirects.cache
+C:\Users\josec\Desktop\7mosemestre\BD2\LoginBD\LoginBD\WindowsFormsApp1\obj\Debug\WindowsFormsApp1.Deposito.resources
+C:\Users\josec\Desktop\7mosemestre\BD2\LoginBD\LoginBD\WindowsFormsApp1\obj\Debug\WindowsFormsApp1.EstadoCuenta.resources
+C:\Users\josec\Desktop\7mosemestre\BD2\LoginBD\LoginBD\WindowsFormsApp1\obj\Debug\WindowsFormsApp1.Form1.resources
+C:\Users\josec\Desktop\7mosemestre\BD2\LoginBD\LoginBD\WindowsFormsApp1\obj\Debug\WindowsFormsApp1.Retiro.resources
+C:\Users\josec\Desktop\7mosemestre\BD2\LoginBD\LoginBD\WindowsFormsApp1\obj\Debug\WindowsFormsApp1.Operaciones.resources
+C:\Users\josec\Desktop\7mosemestre\BD2\LoginBD\LoginBD\WindowsFormsApp1\obj\Debug\WindowsFormsApp1.Properties.Resources.resources
+C:\Users\josec\Desktop\7mosemestre\BD2\LoginBD\LoginBD\WindowsFormsApp1\obj\Debug\WindowsFormsApp1.csproj.GenerateResource.cache
+C:\Users\josec\Desktop\7mosemestre\BD2\LoginBD\LoginBD\WindowsFormsApp1\obj\Debug\WindowsFormsApp1.csproj.CoreCompileInputs.cache
+C:\Users\josec\Desktop\7mosemestre\BD2\LoginBD\LoginBD\WindowsFormsApp1\obj\Debug\WindowsFormsApp1.csproj.CopyComplete
+C:\Users\josec\Desktop\7mosemestre\BD2\LoginBD\LoginBD\WindowsFormsApp1\obj\Debug\WindowsFormsApp1.exe
+C:\Users\josec\Desktop\7mosemestre\BD2\LoginBD\LoginBD\WindowsFormsApp1\obj\Debug\WindowsFormsApp1.pdb

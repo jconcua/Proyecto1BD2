@@ -160,5 +160,81 @@ namespace WindowsFormsApp1
         {
             Application.Exit();
         }
+
+        private void button2_Click_1(object sender, EventArgs e)
+        {
+
+            float NoCuenta;
+            float Monto;
+            NoCuenta = float.Parse(txtNoCuenta.Text);
+            Monto = float.Parse(txtMonto.Text);
+
+            float saldoactual=0;
+            String saldito;
+
+
+            if (Monto >= 0)
+            {
+
+                try
+                {
+                    //Crea una conexión a la BD
+                    OracleConnection conexion = new OracleConnection("Data source = xe; Password = #Physical; User ID = SYSTEM");
+
+                    //Abre la conexión creada a la bd
+                    conexion.Open();
+
+                    OracleCommand consultasaldo = new OracleCommand("SELECT SALDO AS sal  FROM CUENTA WHERE NO_CUENTA= :No_cuenta", conexion);
+
+                    //Captura los parámetros del txt y los envía a la consulta comando
+                    consultasaldo.Parameters.AddWithValue(":No_cuenta", NoCuenta);
+
+                    // Aplica el lector a la bd de acuerdo a la consulta de Comando
+                    OracleDataReader lector = consultasaldo.ExecuteReader();
+
+                    // Si el lector logra leer los datos, entonces
+                    if (lector.Read())
+                    {
+
+                        saldito = lector["sal"].ToString();
+                        
+                        saldoactual = float.Parse(saldito);
+
+                    }
+
+                    //Con el comando, hace una consulta a la tabla USUARIO 
+                    //OracleCommand comandomonto = new OracleCommand("SELECT * FROM CUENTA WHERE NO_CUENTA= :No_cuenta", conexion);
+
+                    OracleCommand comando = new OracleCommand("Retiro", conexion);
+                    comando.CommandType = System.Data.CommandType.StoredProcedure;
+                
+                    //comando.Parameters.Add("P_NO_CUENTA", OracleType.Number).Value = Convert.ToInt32(txtNoCuenta);
+                    comando.Parameters.Add("P_NO_CUENTA", OracleType.Number).Value = NoCuenta;
+                    comando.Parameters.Add("P_MONTO", OracleType.Number).Value = Monto;
+
+                    if(saldoactual >= Monto && Monto>=0)
+                    {
+                        comando.ExecuteNonQuery();
+                        MessageBox.Show("Retiro realizado con éxito");
+                        conexion.Close();
+
+                    }
+
+                    else
+                    {
+                        MessageBox.Show("Fondos insuficientes");
+                    }
+
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+            }
+            else
+            {
+                MessageBox.Show("Monto no válido");
+            }
+        }
     }
 }

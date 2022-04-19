@@ -39,7 +39,7 @@
             this.label6 = new System.Windows.Forms.Label();
             this.button2 = new System.Windows.Forms.Button();
             this.label5 = new System.Windows.Forms.Label();
-            this.textBox3 = new System.Windows.Forms.TextBox();
+            this.txtMonto = new System.Windows.Forms.TextBox();
             this.btnBuscarCuenta = new System.Windows.Forms.Button();
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
@@ -101,7 +101,7 @@
             this.panel1.Controls.Add(this.label6);
             this.panel1.Controls.Add(this.button2);
             this.panel1.Controls.Add(this.label5);
-            this.panel1.Controls.Add(this.textBox3);
+            this.panel1.Controls.Add(this.txtMonto);
             this.panel1.Location = new System.Drawing.Point(23, 211);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(524, 113);
@@ -134,6 +134,7 @@
             this.button2.TabIndex = 19;
             this.button2.Text = "Depositar";
             this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click_1);
             // 
             // label5
             // 
@@ -145,12 +146,12 @@
             this.label5.TabIndex = 18;
             this.label5.Text = "Cantidad deposito";
             // 
-            // textBox3
+            // txtMonto
             // 
-            this.textBox3.Location = new System.Drawing.Point(164, 17);
-            this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(190, 20);
-            this.textBox3.TabIndex = 17;
+            this.txtMonto.Location = new System.Drawing.Point(164, 17);
+            this.txtMonto.Name = "txtMonto";
+            this.txtMonto.Size = new System.Drawing.Size(190, 20);
+            this.txtMonto.TabIndex = 17;
             // 
             // btnBuscarCuenta
             // 
@@ -267,7 +268,7 @@
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.TextBox textBox3;
+        private System.Windows.Forms.TextBox txtMonto;
         private System.Windows.Forms.Button btnBuscarCuenta;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label3;

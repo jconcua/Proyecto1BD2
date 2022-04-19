@@ -116,23 +116,49 @@ namespace WindowsFormsApp1
         }
 
         private void button2_Click(object sender, EventArgs e)
-        {
-            //Crea una conexión a la BD
-            OracleConnection conexion = new OracleConnection("Data source = xe; Password = #Physical; User ID = SYSTEM");
+        { 
+            float NoCuenta;
+            float Monto;
+            NoCuenta = float.Parse(txtNoCuenta.Text);
+            Monto = float.Parse(txtDepositar.Text);
 
-            //Abre la conexión creada a la bd
-            conexion.Open();
+            if (Monto >= 0)
+            {
 
-            //Con el comando, hace una consulta a la tabla USUARIO 
-            //OracleCommand comando = new OracleCommand("SELECT * FROM CUENTA WHERE NO_CUENTA= :No_cuenta", conexion);
+                try
+                {
+                    //Crea una conexión a la BD
+                    OracleConnection conexion = new OracleConnection("Data source = xe; Password = #Physical; User ID = SYSTEM");
 
-            OracleCommand comando = new OracleCommand("actualizar", conexion);
-            comando.CommandType = System.Data.CommandType.StoredProcedure;
-            comando.Parameters.Add("SALDO", OracleType.Number).Value = Convert.ToInt32(txtDepositar);
-            comando.ExecuteNonQuery();
-            MessageBox.Show("Deposito realizado con éxito");
-            conexion.Close();
+                    //Abre la conexión creada a la bd
+                    conexion.Open();
 
+                    //Con el comando, hace una consulta a la tabla USUARIO 
+                    //OracleCommand comando = new OracleCommand("SELECT * FROM CUENTA WHERE NO_CUENTA= :No_cuenta", conexion);
+
+                    OracleCommand comando = new OracleCommand("Deposito", conexion);
+                    comando.CommandType = System.Data.CommandType.StoredProcedure;
+
+
+                    //comando.Parameters.Add("P_NO_CUENTA", OracleType.Number).Value = Convert.ToInt32(txtNoCuenta);
+                    comando.Parameters.Add("P_NO_CUENTA", OracleType.Number).Value = NoCuenta;
+                    comando.Parameters.Add("P_MONTO", OracleType.Number).Value = Monto;
+
+                    comando.ExecuteNonQuery();
+                    MessageBox.Show("Deposito realizado con éxito");
+                    conexion.Close();
+
+
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+            }
+            else
+            {
+                MessageBox.Show("Monto no válido");
+            }
 
         }
 
