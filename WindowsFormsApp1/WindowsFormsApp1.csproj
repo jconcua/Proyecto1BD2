@@ -68,6 +68,12 @@
     <Compile Include="Deposito.Designer.cs">
       <DependentUpon>Deposito.cs</DependentUpon>
     </Compile>
+    <Compile Include="OperacionesSup.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="OperacionesSup.Designer.cs">
+      <DependentUpon>OperacionesSup.cs</DependentUpon>
+    </Compile>
     <Compile Include="Retiro.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -90,6 +96,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="OperacionesSup.resx">
+      <DependentUpon>OperacionesSup.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Retiro.resx">
       <DependentUpon>Retiro.cs</DependentUpon>

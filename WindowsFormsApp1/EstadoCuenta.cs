@@ -69,7 +69,7 @@ namespace WindowsFormsApp1
         private void pictureBox2_Click(object sender, EventArgs e)
         {
             // Ejecuta el formulario operaciones
-            Operaciones formulario = new Operaciones();
+            Form1 formulario = new Form1();
             //cierra el presente formulario de operaciones
             this.Hide();
             //Muestra el fomulario 1

@@ -26,7 +26,6 @@ namespace WindowsFormsApp1
         {
             //Crea una conexión a la BD
             OracleConnection conexion = new OracleConnection("Data source = xe; Password = #Physical; User ID = SYSTEM");
-
             //Crea una tala data
             DataTable dt = new DataTable();
             //Abre la conexión creada a la bd
@@ -53,38 +52,27 @@ namespace WindowsFormsApp1
         {
             //Crea una conexión a la BD
             OracleConnection conexion = new OracleConnection("Data source = xe; Password = #Physical; User ID = SYSTEM");
-
             DataTable dt = new DataTable();
-
             //Abre la conexión creada a la bd
             conexion.Open();
-
             //Con el comando, hace una consulta a la tabla USUARIO 
             OracleCommand comando = new OracleCommand("SELECT * FROM CUENTA WHERE NO_CUENTA= :No_cuenta AND ID_CLIENTE= :ID_Cliente AND ID_TIPO= :Id_Tipo", conexion);
-
             //Captura los parámetros del txt y los envía a la consulta comando
             comando.Parameters.AddWithValue(":No_cuenta", txtNoCuenta.Text);
-
-
             // Aplica el lector a la bd de acuerdo a la consulta de Comando
             OracleDataReader lector = comando.ExecuteReader();
-
             // Si el lector logra leer los datos, entonces
             if (lector.Read())
             {
-
-
                 MessageBox.Show("cuenta válida");
                 // cierra la conexión creada
                 conexion.Close();
-
             }
             else
             {
                 MessageBox.Show("Cuenta no válida");
                 // cierra la conexión creada
                 conexion.Close();
-
             }
         }
 
@@ -108,31 +96,22 @@ namespace WindowsFormsApp1
 
             //Crea una conexión a la BD
             OracleConnection conexion = new OracleConnection("Data source = xe; Password = #Physical; User ID = SYSTEM");
-
             //Abre la conexión creada a la bd
             conexion.Open();
-
             //Con el comando, hace una consulta a la tabla USUARIO 
             //OracleCommand comando = new OracleCommand("SELECT * FROM CUENTA WHERE NO_CUENTA= :No_cuenta", conexion);
-
             OracleCommand comando = new OracleCommand("SELECT c.NO_CUENTA AS CUENTA, cl.NOMBRE_CLIENTE AS CLIENTE, tc.NOMBRE_TIPO_CUENTA AS TIPO_CUENTA, c.Saldo AS SCUENTA FROM CUENTA c, Cliente cl, TIPO_CUENTA tc WHERE c.ID_CLIENTE=cl.ID_CLIENTE AND c.ID_TIPO=tc.ID_Tipo_Cuenta AND NO_CUENTA= :No_cuenta", conexion);
-
             //Captura los parámetros del txt y los envía a la consulta comando
             comando.Parameters.AddWithValue(":No_cuenta", txtNoCuenta.Text);
-
             // Aplica el lector a la bd de acuerdo a la consulta de Comando
             OracleDataReader lector = comando.ExecuteReader();
-
             // Si el lector logra leer los datos, entonces
             if (lector.Read())
             {
-
                 lblNombrecuenta.Text = lector["CLIENTE"].ToString();
                 lbltipocuenta.Text = lector["TIPO_CUENTA"].ToString();
                 lblsaldo.Text = lector["SCUENTA"].ToString();
-
                 MessageBox.Show("cuenta válida");
-
                 // cierra la conexión creada
                 conexion.Close();
 
@@ -149,7 +128,7 @@ namespace WindowsFormsApp1
         private void pictureBox2_Click_1(object sender, EventArgs e)
         {
             // Ejecuta el formulario operaciones
-            Operaciones formulario = new Operaciones();
+            Form1 formulario = new Form1();
             //cierra el presente formulario de operaciones
             this.Hide();
             //Muestra el fomulario 1
@@ -163,7 +142,6 @@ namespace WindowsFormsApp1
 
         private void button2_Click_1(object sender, EventArgs e)
         {
-
             float NoCuenta;
             float Monto;
             NoCuenta = float.Parse(txtNoCuenta.Text);
@@ -172,7 +150,6 @@ namespace WindowsFormsApp1
             float saldoactual=0;
             String saldito;
 
-
             if (Monto >= 0)
             {
 
@@ -180,31 +157,22 @@ namespace WindowsFormsApp1
                 {
                     //Crea una conexión a la BD
                     OracleConnection conexion = new OracleConnection("Data source = xe; Password = #Physical; User ID = SYSTEM");
-
                     //Abre la conexión creada a la bd
                     conexion.Open();
-
                     OracleCommand consultasaldo = new OracleCommand("SELECT SALDO AS sal  FROM CUENTA WHERE NO_CUENTA= :No_cuenta", conexion);
-
                     //Captura los parámetros del txt y los envía a la consulta comando
                     consultasaldo.Parameters.AddWithValue(":No_cuenta", NoCuenta);
-
                     // Aplica el lector a la bd de acuerdo a la consulta de Comando
                     OracleDataReader lector = consultasaldo.ExecuteReader();
-
                     // Si el lector logra leer los datos, entonces
                     if (lector.Read())
                     {
-
                         saldito = lector["sal"].ToString();
-                        
                         saldoactual = float.Parse(saldito);
-
                     }
 
                     //Con el comando, hace una consulta a la tabla USUARIO 
                     //OracleCommand comandomonto = new OracleCommand("SELECT * FROM CUENTA WHERE NO_CUENTA= :No_cuenta", conexion);
-
                     OracleCommand comando = new OracleCommand("Retiro", conexion);
                     comando.CommandType = System.Data.CommandType.StoredProcedure;
                 
@@ -215,11 +183,14 @@ namespace WindowsFormsApp1
                     if(saldoactual >= Monto && Monto>=0)
                     {
                         comando.ExecuteNonQuery();
+                        lblNombrecuenta.Text = " ";
+                        lblsaldo.Text = " ";
+                        lbltipocuenta.Text = " ";
+                        txtMonto.Text = " ";
+
                         MessageBox.Show("Retiro realizado con éxito");
                         conexion.Close();
-
                     }
-
                     else
                     {
                         MessageBox.Show("Fondos insuficientes");
