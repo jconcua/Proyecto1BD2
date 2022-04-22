@@ -15,13 +15,20 @@ namespace WindowsFormsApp1
 {
     public partial class EstadoCuenta : Form
     {
-        public EstadoCuenta()
+        public EstadoCuenta(int Id_usuario)
         {
             InitializeComponent();
+            this.Id_usuario = Id_usuario;
         }
 
+        int Id_usuario;
         private void btnBuscarCuenta_Click(object sender, EventArgs e)
         {
+
+            float NoCuenta;
+            float Monto;
+            NoCuenta = float.Parse(txtNoCuenta.Text);
+
 
             //Crea una conexión a la BD
             OracleConnection conexion = new OracleConnection("Data source = xe; Password = #Physical; User ID = SYSTEM");
@@ -47,6 +54,15 @@ namespace WindowsFormsApp1
                 lblNombrecuenta.Text = lector["CLIENTE"].ToString();
                 lbltipocuenta.Text = lector["TIPO_CUENTA"].ToString();
                 lblsaldo.Text = lector["SCUENTA"].ToString();
+
+                OracleCommand comandodeptrans = new OracleCommand("TRANSACCIONES_CONSULTASALD", conexion);
+                comandodeptrans.CommandType = System.Data.CommandType.StoredProcedure;
+                comandodeptrans.Parameters.Add("TRANS", OracleType.Number).Value = 1;
+                comandodeptrans.Parameters.Add("OPERACION", OracleType.Number).Value = 1;
+                comandodeptrans.Parameters.Add("CUENTA", OracleType.Number).Value = NoCuenta;
+                comandodeptrans.Parameters.Add("USUARIO", OracleType.Number).Value = Id_usuario;
+
+                comandodeptrans.ExecuteNonQuery();
 
                 MessageBox.Show("cuenta válida");
 

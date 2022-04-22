@@ -15,12 +15,16 @@ namespace WindowsFormsApp1
 {
     public partial class Deposito : Form
     {
-        public Deposito()
+        public Deposito(int Id_usuario)
         {
             InitializeComponent();
             cmbxformapago.DataSource = DatosFormaPago();
-            cmbxformapago.DisplayMember = "NOMBRE_FORMA_PAGO";
+            cmbxformapago.DisplayMember = "ID_FORMA_Pago";
+            this.Id_usuarioaux= Id_usuario;
+ 
         }
+
+        int Id_usuarioaux;
 
         public DataTable DatosFormaPago()
         {
@@ -121,20 +125,19 @@ namespace WindowsFormsApp1
             float Monto;
             NoCuenta = float.Parse(txtNoCuenta.Text);
             Monto = float.Parse(txtDepositar.Text);
+            int Id_usuario=Id_usuarioaux;
+            int Id_forma_pago=int.Parse(cmbxformapago.Text);
 
             if (Monto >= 0)
             {
 
-                try
-                {
-                    //Crea una conexión a la BD
-                    OracleConnection conexion = new OracleConnection("Data source = xe; Password = #Physical; User ID = SYSTEM");
+            try
+            {
+            // Crea una conexión a la BD
+            OracleConnection conexion = new OracleConnection("Data source = xe; Password = #Physical; User ID = SYSTEM");
 
                     //Abre la conexión creada a la bd
                     conexion.Open();
-
-                    //Con el comando, hace una consulta a la tabla USUARIO 
-                    //OracleCommand comando = new OracleCommand("SELECT * FROM CUENTA WHERE NO_CUENTA= :No_cuenta", conexion);
 
                     OracleCommand comando = new OracleCommand("Deposito", conexion);
                     comando.CommandType = System.Data.CommandType.StoredProcedure;
@@ -151,9 +154,20 @@ namespace WindowsFormsApp1
                     lbltipocuenta.Text = " ";
                     txtDepositar.Text = " ";
 
+                    OracleCommand comandodeptrans = new OracleCommand("TRANSACCIONES_AUDITORIA", conexion);
+                    comandodeptrans.CommandType = System.Data.CommandType.StoredProcedure;
+                    comandodeptrans.Parameters.Add("TRANS", OracleType.Number).Value = 1;
+                    comandodeptrans.Parameters.Add("OPERACION", OracleType.Number).Value = 2;
+                    comandodeptrans.Parameters.Add("CUENTA", OracleType.Number).Value = NoCuenta;
+                    comandodeptrans.Parameters.Add("USUARIO", OracleType.Number).Value = Id_usuario;
+                    comandodeptrans.Parameters.Add("FORMA_PAGO", OracleType.Number).Value = Id_forma_pago;
+                    comandodeptrans.Parameters.Add("MONTO", OracleType.Number).Value = Monto;
+
+                    comandodeptrans.ExecuteNonQuery();
+
                     MessageBox.Show("Deposito realizado con éxito");
-  
-                    conexion.Close();
+
+            conexion.Close();
 
 
                 }
@@ -161,11 +175,11 @@ namespace WindowsFormsApp1
                 {
                     MessageBox.Show(ex.Message);
                 }
-            }
-            else
-            {
-                MessageBox.Show("Monto no válido");
-            }
+           }
+           else
+           {
+              MessageBox.Show("Monto no válido");
+           }
 
         }
 

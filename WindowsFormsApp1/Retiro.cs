@@ -15,13 +15,15 @@ namespace WindowsFormsApp1
 {
     public partial class Retiro : Form
     {
-        public Retiro()
+        public Retiro(int Id_usuario)
         {
             InitializeComponent();
             cmbxformapago.DataSource = DatosFormaPago();
-            cmbxformapago.DisplayMember = "NOMBRE_FORMA_PAGO";
+            cmbxformapago.DisplayMember = "ID_FORMA_Pago";
+            this.Id_usuario = Id_usuario;
         }
 
+        int Id_usuario;
         public DataTable DatosFormaPago()
         {
             //Crea una conexión a la BD
@@ -79,7 +81,7 @@ namespace WindowsFormsApp1
         private void pictureBox2_Click(object sender, EventArgs e)
         {
             // Ejecuta el formulario operaciones
-            Operaciones formulario = new Operaciones();
+            Operaciones formulario = new Operaciones(Id_usuario);
             //cierra el presente formulario de operaciones
             this.Hide();
             //Muestra el fomulario 1
@@ -96,6 +98,7 @@ namespace WindowsFormsApp1
 
             //Crea una conexión a la BD
             OracleConnection conexion = new OracleConnection("Data source = xe; Password = #Physical; User ID = SYSTEM");
+            // BD2 COMO DATA SOURCE
             //Abre la conexión creada a la bd
             conexion.Open();
             //Con el comando, hace una consulta a la tabla USUARIO 
@@ -146,7 +149,7 @@ namespace WindowsFormsApp1
             float Monto;
             NoCuenta = float.Parse(txtNoCuenta.Text);
             Monto = float.Parse(txtMonto.Text);
-
+            int Id_forma_pago = int.Parse(cmbxformapago.Text);
             float saldoactual=0;
             String saldito;
 
@@ -187,6 +190,20 @@ namespace WindowsFormsApp1
                         lblsaldo.Text = " ";
                         lbltipocuenta.Text = " ";
                         txtMonto.Text = " ";
+
+
+                        OracleCommand comandorettrans = new OracleCommand("TRANSACCIONES_AUDITORIA", conexion);
+                        comandorettrans.CommandType = System.Data.CommandType.StoredProcedure;
+                        comandorettrans.Parameters.Add("TRANS", OracleType.Number).Value = 1;
+                        comandorettrans.Parameters.Add("OPERACION", OracleType.Number).Value = 3;
+                        comandorettrans.Parameters.Add("CUENTA", OracleType.Number).Value = NoCuenta;
+                        comandorettrans.Parameters.Add("USUARIO", OracleType.Number).Value = Id_usuario;
+                        comandorettrans.Parameters.Add("FORMA_PAGO", OracleType.Number).Value = Id_forma_pago;
+                        comandorettrans.Parameters.Add("MONTO", OracleType.Number).Value = Monto;
+
+                        comandorettrans.ExecuteNonQuery();
+
+
 
                         MessageBox.Show("Retiro realizado con éxito");
                         conexion.Close();

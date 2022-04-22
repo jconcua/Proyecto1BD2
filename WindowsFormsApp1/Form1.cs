@@ -19,21 +19,28 @@ namespace WindowsFormsApp1
         public Form1()
         {
             InitializeComponent();
+           
+
         }
         //Crea una conexión a la BD
         OracleConnection conexion = new OracleConnection("Data source = xe; Password = #Physical; User ID = SYSTEM");
-        
+       
+        int Id_usuario;
+
         private void button1_Click(object sender, EventArgs e)
         {
+    
+           // Program.Id_usuarioaux = Id_usuario;
             int Id_rol_usuario;
             int Id_permiso_usuario;
+
 
             try
             {
                 //Abre la conexión creada a la bd
                 conexion.Open();
                 //Con el comando, hace una consulta a la tabla USUARIO 
-                OracleCommand comando = new OracleCommand("SELECT Id_usuario, Contrasena, Id_Rol AS rol, Id_Permiso AS permiso FROM USUARIO WHERE ID_USUARIO= :ID_USUARIO AND CONTRASENA= :CONTRASENA", conexion);
+                OracleCommand comando = new OracleCommand("SELECT Id_usuario AS IDUSER, Contrasena, Id_Rol AS rol, Id_Permiso AS permiso FROM USUARIO WHERE ID_USUARIO= :ID_USUARIO AND CONTRASENA= :CONTRASENA", conexion);
                 //Captura los parámetros del txt y los envía a la consulta comando
                 String usuario = txtUsuario.Text;
                 comando.Parameters.AddWithValue(":ID_USUARIO", int.Parse(usuario));
@@ -44,6 +51,9 @@ namespace WindowsFormsApp1
                 if (lector.Read())
                 {
 
+                    object I = lector["IDUSER"];
+                    Id_usuario = Convert.ToInt32(I);
+
                     object v = lector["rol"];
                     Id_rol_usuario = Convert.ToInt32(v);
 
@@ -52,9 +62,9 @@ namespace WindowsFormsApp1
 
                     if (Id_rol_usuario == 1 && Id_permiso_usuario ==1)
                     {
-                        MessageBox.Show("cabron" + Id_rol_usuario);
+                        //MessageBox.Show("Bienvenido " + Id_usuario);
                         // Ejecuta el formulario 2
-                        OperacionesSup formulario = new OperacionesSup();
+                        OperacionesSup formulario = new OperacionesSup(Id_usuario);
                         // cierra la conexión creada
                         conexion.Close();
                         //cierra el presente formulario de login
@@ -67,9 +77,9 @@ namespace WindowsFormsApp1
 
                     if (Id_rol_usuario == 2 && Id_permiso_usuario == 2)
                     {
-                        MessageBox.Show("cabron" + Id_rol_usuario);
+                        MessageBox.Show("Bienvenido " + Id_usuario);
                         // Ejecuta el formulario 2
-                        Operaciones formulario = new Operaciones();
+                        Operaciones formulario = new Operaciones(Id_usuario);
                         // cierra la conexión creada
                         conexion.Close();
                         //cierra el presente formulario de login
@@ -82,9 +92,9 @@ namespace WindowsFormsApp1
 
                     if (Id_rol_usuario == 3 && Id_permiso_usuario == 3)
                     {
-                        MessageBox.Show("cabron" + Id_rol_usuario);
+                        MessageBox.Show("Bienvenido " + Id_usuario);
                         // Ejecuta el formulario 2
-                        EstadoCuenta formulario = new EstadoCuenta();
+                        EstadoCuenta formulario = new EstadoCuenta(Id_usuario);
                         // cierra la conexión creada
                         conexion.Close();
                         //cierra el presente formulario de login
