@@ -27,3 +27,18 @@ C:\Users\josec\Desktop\7mo semestre\Bse de datos 2\LoginBD\LoginBD\WindowsFormsA
 C:\Users\josec\Desktop\7mo semestre\Bse de datos 2\LoginBD\LoginBD\WindowsFormsApp1\obj\Debug\WindowsFormsApp1.Deposito.resources
 C:\Users\josec\Desktop\7mo semestre\Bse de datos 2\LoginBD\LoginBD\WindowsFormsApp1\obj\Debug\WindowsFormsApp1.Retiro.resources
 C:\Users\josec\Desktop\7mo semestre\Bse de datos 2\LoginBD\LoginBD\WindowsFormsApp1\obj\Debug\WindowsFormsApp1.EstadoCuenta.resources
+C:\Users\agarc\Source\Repos\Proyecto1BD2\WindowsFormsApp1\bin\Debug\WindowsFormsApp1.exe
+C:\Users\agarc\Source\Repos\Proyecto1BD2\WindowsFormsApp1\bin\Debug\WindowsFormsApp1.pdb
+C:\Users\agarc\Source\Repos\Proyecto1BD2\WindowsFormsApp1\bin\Debug\Microsoft.VisualBasic.PowerPacks.xml
+C:\Users\agarc\Source\Repos\Proyecto1BD2\WindowsFormsApp1\obj\Debug\WindowsFormsApp1.csproj.AssemblyReference.cache
+C:\Users\agarc\Source\Repos\Proyecto1BD2\WindowsFormsApp1\obj\Debug\WindowsFormsApp1.Deposito.resources
+C:\Users\agarc\Source\Repos\Proyecto1BD2\WindowsFormsApp1\obj\Debug\WindowsFormsApp1.EstadoCuenta.resources
+C:\Users\agarc\Source\Repos\Proyecto1BD2\WindowsFormsApp1\obj\Debug\WindowsFormsApp1.Form1.resources
+C:\Users\agarc\Source\Repos\Proyecto1BD2\WindowsFormsApp1\obj\Debug\WindowsFormsApp1.Retiro.resources
+C:\Users\agarc\Source\Repos\Proyecto1BD2\WindowsFormsApp1\obj\Debug\WindowsFormsApp1.Operaciones.resources
+C:\Users\agarc\Source\Repos\Proyecto1BD2\WindowsFormsApp1\obj\Debug\WindowsFormsApp1.Properties.Resources.resources
+C:\Users\agarc\Source\Repos\Proyecto1BD2\WindowsFormsApp1\obj\Debug\WindowsFormsApp1.csproj.GenerateResource.cache
+C:\Users\agarc\Source\Repos\Proyecto1BD2\WindowsFormsApp1\obj\Debug\WindowsFormsApp1.csproj.CoreCompileInputs.cache
+C:\Users\agarc\Source\Repos\Proyecto1BD2\WindowsFormsApp1\obj\Debug\WindowsFormsApp1.csproj.CopyComplete
+C:\Users\agarc\Source\Repos\Proyecto1BD2\WindowsFormsApp1\obj\Debug\WindowsFormsApp1.exe
+C:\Users\agarc\Source\Repos\Proyecto1BD2\WindowsFormsApp1\obj\Debug\WindowsFormsApp1.pdb
