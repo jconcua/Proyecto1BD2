@@ -15,12 +15,9 @@ namespace WindowsFormsApp1
 {
     public partial class Form1 : Form
     {
-       
         public Form1()
         {
             InitializeComponent();
-           
-
         }
         //Crea una conexión a la BD
         OracleConnection conexion = new OracleConnection("Data source = xe; Password = #Physical; User ID = SYSTEM");
@@ -29,11 +26,9 @@ namespace WindowsFormsApp1
 
         private void button1_Click(object sender, EventArgs e)
         {
-    
            // Program.Id_usuarioaux = Id_usuario;
             int Id_rol_usuario;
             int Id_permiso_usuario;
-
 
             try
             {
@@ -50,7 +45,6 @@ namespace WindowsFormsApp1
                 // Si el lector logra leer los datos, entonces
                 if (lector.Read())
                 {
-
                     object I = lector["IDUSER"];
                     Id_usuario = Convert.ToInt32(I);
 
@@ -72,12 +66,11 @@ namespace WindowsFormsApp1
                         //Muestra el fomulario 2
                         formulario.Show();
                         formulario.StartPosition = FormStartPosition.CenterParent;
-
                     }
 
                     if (Id_rol_usuario == 2 && Id_permiso_usuario == 2)
                     {
-                        MessageBox.Show("Bienvenido " + Id_usuario);
+                        lblBienvenido.Text = ("Bienvenido " + Id_usuario);
                         // Ejecuta el formulario 2
                         Operaciones formulario = new Operaciones(Id_usuario);
                         // cierra la conexión creada
@@ -87,7 +80,6 @@ namespace WindowsFormsApp1
                         //Muestra el fomulario 2
                         formulario.Show();
                         formulario.StartPosition = FormStartPosition.CenterParent;
-
                     }
 
                     if (Id_rol_usuario == 3 && Id_permiso_usuario == 3)
@@ -104,7 +96,6 @@ namespace WindowsFormsApp1
                         formulario.StartPosition = FormStartPosition.CenterParent;
 
                     }
-
 
                 }
 
