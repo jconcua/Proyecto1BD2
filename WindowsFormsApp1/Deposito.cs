@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Data.OracleClient;
+using Oracle.ManagedDataAccess.Client;
 using System.Configuration;
 using System.Data.SqlClient;
 
@@ -15,24 +15,34 @@ namespace WindowsFormsApp1
 {
     public partial class Deposito : Form
     {
-        public Deposito()
+        public Deposito(int Id_usuario)
         {
             InitializeComponent();
             cmbxformapago.DataSource = DatosFormaPago();
-            cmbxformapago.DisplayMember = "NOMBRE_FORMA_PAGO";
+            cmbxformapago.DisplayMember = "ID_FORMA_Pago";
+            this.Id_usuarioaux= Id_usuario;
+ 
         }
+
+        int Id_usuarioaux;
 
         public DataTable DatosFormaPago()
         {
             //Crea una conexión a la BD
-            OracleConnection conexion = new OracleConnection("Data source = xe; Password = #Physical; User ID = SYSTEM");
-
+            string connString = "Data Source = (DESCRIPTION = " +
+      "(ADDRESS = (PROTOCOL = TCP)(HOST = 25.77.205.156)(PORT = 1521))" +
+      "(CONNECT_DATA =" +
+        "(SERVER = DEDICATED)" +
+        "(SERVICE_NAME = XE)" +
+      ")" +
+    "); User Id = system; password = #Physical";
+            OracleConnection con = new OracleConnection();
+            con.ConnectionString = connString;
+            con.Open();
             //Crea una tala data
             DataTable dt = new DataTable();
-            //Abre la conexión creada a la bd
-            conexion.Open();
             //Con el comando, hace una consulta a la tabla USUARIO 
-            OracleCommand comando = new OracleCommand("SELECT * FROM FORMA_PAGO", conexion);
+            OracleCommand comando = new OracleCommand("SELECT * FROM FORMA_PAGO", con);
             //Captura los parámetros del txt y los envía a la consulta comando
             OracleDataAdapter da = new OracleDataAdapter(comando);
             da.Fill(dt);
@@ -42,7 +52,7 @@ namespace WindowsFormsApp1
         private void pictureBox2_Click(object sender, EventArgs e)
         {
             // Ejecuta el formulario operaciones
-            Operaciones formulario = new Operaciones();
+            Form1 formulario = new Form1();
             //cierra el presente formulario de operaciones
             this.Hide();
             //Muestra el fomulario 1
@@ -76,19 +86,24 @@ namespace WindowsFormsApp1
         private void button1_Click(object sender, EventArgs e)
         {
 
-            //Crea una conexión a la BD
-            OracleConnection conexion = new OracleConnection("Data source = xe; Password = #Physical; User ID = SYSTEM");
-
-            //Abre la conexión creada a la bd
-            conexion.Open();
+            string connString = "Data Source = (DESCRIPTION = " +
+     "(ADDRESS = (PROTOCOL = TCP)(HOST = 25.77.205.156)(PORT = 1521))" +
+     "(CONNECT_DATA =" +
+       "(SERVER = DEDICATED)" +
+       "(SERVICE_NAME = XE)" +
+     ")" +
+   "); User Id = system; password = #Physical";
+            OracleConnection con = new OracleConnection();
+            con.ConnectionString = connString;
+            con.Open();
 
             //Con el comando, hace una consulta a la tabla USUARIO 
             //OracleCommand comando = new OracleCommand("SELECT * FROM CUENTA WHERE NO_CUENTA= :No_cuenta", conexion);
 
-            OracleCommand comando = new OracleCommand("SELECT c.NO_CUENTA AS CUENTA, cl.NOMBRE_CLIENTE AS CLIENTE, tc.NOMBRE_TIPO_CUENTA AS TIPO_CUENTA, c.Saldo AS SCUENTA FROM CUENTA c, Cliente cl, TIPO_CUENTA tc WHERE c.ID_CLIENTE=cl.ID_CLIENTE AND c.ID_TIPO=tc.ID_Tipo_Cuenta AND NO_CUENTA= :No_cuenta", conexion);
+            OracleCommand comando = new OracleCommand("SELECT c.NO_CUENTA AS CUENTA, cl.NOMBRE_CLIENTE AS CLIENTE, tc.NOMBRE_TIPO_CUENTA AS TIPO_CUENTA, c.Saldo AS SCUENTA FROM CUENTA c, Cliente cl, TIPO_CUENTA tc WHERE c.ID_CLIENTE=cl.ID_CLIENTE AND c.ID_TIPO=tc.ID_Tipo_Cuenta AND NO_CUENTA= :No_cuenta", con);
 
             //Captura los parámetros del txt y los envía a la consulta comando
-            comando.Parameters.AddWithValue(":No_cuenta", txtNoCuenta.Text);
+            comando.Parameters.Add(":No_cuenta", txtNoCuenta.Text);
 
             // Aplica el lector a la bd de acuerdo a la consulta de Comando
             OracleDataReader lector = comando.ExecuteReader();
@@ -103,36 +118,85 @@ namespace WindowsFormsApp1
                 MessageBox.Show("cuenta válida");
 
                 // cierra la conexión creada
-                conexion.Close();
+                con.Close();
 
             }
             else
             {
                 MessageBox.Show("Cuenta no válida");
                 // cierra la conexión creada
-                conexion.Close();
+                con.Close();
 
             }
         }
 
         private void button2_Click(object sender, EventArgs e)
-        {
-            //Crea una conexión a la BD
-            OracleConnection conexion = new OracleConnection("Data source = xe; Password = #Physical; User ID = SYSTEM");
+        { 
+            float NoCuenta;
+            float Monto;
+            NoCuenta = float.Parse(txtNoCuenta.Text);
+            Monto = float.Parse(txtDepositar.Text);
+            int Id_usuario=Id_usuarioaux;
+            int Id_forma_pago=int.Parse(cmbxformapago.Text);
 
-            //Abre la conexión creada a la bd
-            conexion.Open();
+            if (Monto >= 0)
+            {
 
-            //Con el comando, hace una consulta a la tabla USUARIO 
-            //OracleCommand comando = new OracleCommand("SELECT * FROM CUENTA WHERE NO_CUENTA= :No_cuenta", conexion);
+            try
+            {
+                    // Crea una conexión a la BD
+                    string connString = "Data Source = (DESCRIPTION = " +
+             "(ADDRESS = (PROTOCOL = TCP)(HOST = 25.77.205.156)(PORT = 1521))" +
+             "(CONNECT_DATA =" +
+               "(SERVER = DEDICATED)" +
+               "(SERVICE_NAME = XE)" +
+             ")" +
+           "); User Id = system; password = #Physical";
+                    OracleConnection con = new OracleConnection();
+                    con.ConnectionString = connString;
+                    con.Open();
 
-            OracleCommand comando = new OracleCommand("actualizar", conexion);
-            comando.CommandType = System.Data.CommandType.StoredProcedure;
-            comando.Parameters.Add("SALDO", OracleType.Number).Value = Convert.ToInt32(txtDepositar);
-            comando.ExecuteNonQuery();
-            MessageBox.Show("Deposito realizado con éxito");
-            conexion.Close();
+                    OracleCommand comando = new OracleCommand("Deposito", con);
+                    comando.CommandType = System.Data.CommandType.StoredProcedure;
 
+
+                    //comando.Parameters.Add("P_NO_CUENTA", OracleType.Number).Value = Convert.ToInt32(txtNoCuenta);
+                    comando.Parameters.Add("P_NO_CUENTA", OracleDbType.Int64).Value = NoCuenta;
+                    comando.Parameters.Add("P_MONTO", OracleDbType.Int64).Value = Monto;
+
+                    comando.ExecuteNonQuery();
+
+                    lblNombrecuenta.Text = " ";
+                    lblsaldo.Text = " ";
+                    lbltipocuenta.Text = " ";
+                    txtDepositar.Text = " ";
+
+                    OracleCommand comandodeptrans = new OracleCommand("TRANSACCIONES_AUDITORIA", con);
+                    comandodeptrans.CommandType = System.Data.CommandType.StoredProcedure;
+                    comandodeptrans.Parameters.Add("TRANS", OracleDbType.Int64).Value = 1;
+                    comandodeptrans.Parameters.Add("OPERACION", OracleDbType.Int64).Value = 2;
+                    comandodeptrans.Parameters.Add("CUENTA", OracleDbType.Int64).Value = NoCuenta;
+                    comandodeptrans.Parameters.Add("USUARIO", OracleDbType.Int64).Value = Id_usuario;
+                    comandodeptrans.Parameters.Add("FORMA_PAGO", OracleDbType.Int64).Value = Id_forma_pago;
+                    comandodeptrans.Parameters.Add("MONTO", OracleDbType.Int64).Value = Monto;
+
+                    comandodeptrans.ExecuteNonQuery();
+
+                    MessageBox.Show("Deposito realizado con éxito");
+
+            con.Close();
+
+
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+           }
+           else
+           {
+              MessageBox.Show("Monto no válido");
+           }
 
         }
 

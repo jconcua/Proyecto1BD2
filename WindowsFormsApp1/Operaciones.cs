@@ -12,11 +12,12 @@ namespace WindowsFormsApp1
 {
     public partial class Operaciones : Form
     {
-        public Operaciones()
+        public Operaciones(int Id_usuario)
         {
             InitializeComponent();
+            this.Id_usuario = Id_usuario;
         }
-
+        int Id_usuario;
         private void Form2_Load(object sender, EventArgs e)
         {
 
@@ -47,7 +48,7 @@ namespace WindowsFormsApp1
         private void pictureBox2_Click(object sender, EventArgs e)
         {
             // Ejecuta el formulario 1
-            Deposito formulario = new Deposito();
+            Deposito formulario = new Deposito(Id_usuario);
             //cierra el presente formulario de operaciones
             this.Hide();
             //Muestra el fomulario 1
@@ -58,7 +59,7 @@ namespace WindowsFormsApp1
         private void pictureBox3_Click(object sender, EventArgs e)
         {
             // Ejecuta el formulario 1
-            Retiro formulario = new Retiro();
+            Retiro formulario = new Retiro(Id_usuario);
             //cierra el presente formulario de operaciones
             this.Hide();
             //Muestra el fomulario 1
@@ -69,7 +70,7 @@ namespace WindowsFormsApp1
         private void pictureBox4_Click(object sender, EventArgs e)
         {
             // Ejecuta el formulario 1
-            EstadoCuenta formulario = new EstadoCuenta();
+            EstadoCuenta formulario = new EstadoCuenta(Id_usuario);
             //cierra el presente formulario de operaciones
             this.Hide();
             //Muestra el fomulario 1
